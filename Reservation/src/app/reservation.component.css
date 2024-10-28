@@ -1,0 +1,35 @@
+.card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.features {
+    margin-top: 1rem;
+}
+
+.features .badge {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.time-slots {
+    margin-top: 2rem;
+}
+
+.card.border-primary {
+    border-width: 2px;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+input[type="date"] {
+    max-width: 200px;
+}

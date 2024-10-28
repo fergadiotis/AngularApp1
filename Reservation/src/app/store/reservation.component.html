@@ -1,0 +1,71 @@
+<div class="container-fluid">
+    <div class="row">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container">
+                <span class="navbar-brand">Conservation Area Reservations</span>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Area Selection -->
+        <div class="col-12 mb-4">
+            <h2>Select Conservation Area</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                <div *ngFor="let area of areas" class="col">
+                            <h5 class="card-title">{{area.name}}</h5>
+                            <p class="card-text">{{area.description}}</p>
+                            <div class="features">
+                                <span *ngFor="let feature of area.features" class="badge bg-secondary me-1">
+                                    {{feature}}
+                                </span>
+                            </div>
+                            <div class="price mt-2">
+                                <span class="badge bg-primary">
+                                    {{area.price | currency:"USD"}} per slot
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Date and Time Slot Selection -->
+        <div *ngIf="selectedArea" class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Reserve Time Slot for {{selectedArea.name}}</h3>
+
+                    <div class="mb-3">
+                        <label for="date" class="form-label">Select Date</label>
+                        <input type="date" id="date" class="form-control" [value]="selectedDate"
+                            (change)="updateDate($event)" [min]="selectedDate">
+                    </div>
+
+                    <div class="time-slots">
+                        <h4>Available Time Slots</h4>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div *ngFor="let slot of availableSlots" class="col">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{slot.timeSlot}}</h5>
+                                        <p class="card-text">
+                                            Available Spots:
+                                            {{(slot.maxVisitors ?? 0) - (slot.currentBookings ?? 0)}}
+                                            of {{slot.maxVisitors}}
+                                        </p>
+                                        <button class="btn btn-primary w-100" [disabled]="!isSlotAvailable(slot)"
+                                            (click)="reserveSlot(slot)">
+                                            Reserve Slot
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
